@@ -43,7 +43,8 @@ class Add extends React.Component<any> {
         const inputLinkParts = inputData.split(`/`);
         if (inputLinkParts.length === 1) {
           inputRef.style.borderBottomColor = `red`;
-          inputRef.value = `The link you have entered is not valid!`;
+          const refToInputMsg = document.getElementById(`input-msg-container-container`) as any;
+          refToInputMsg.style.display = `flex`;
         } else {
           const ytId = inputLinkParts[inputLinkParts.length - 1];
 

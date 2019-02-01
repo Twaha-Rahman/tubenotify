@@ -1,7 +1,24 @@
+#input-msg-container-container {
+    display: none;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+
+.input-msg-container {
+    padding: 5px;
+    border: #c0392b solid 2px;
+    border-radius: 25px;
+    width: 75%;
+}
+
+#input-msg {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
 .wrapper {
     font-family: Roboto;
     font-size: 50px;
-
     text-align: center;
     width: 100%;
 }
