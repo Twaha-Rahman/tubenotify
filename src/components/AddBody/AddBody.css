@@ -1,0 +1,26 @@
+.wrapper {
+    font-family: Roboto;
+    font-size: 50px;
+
+    text-align: center;
+    width: 100%;
+}
+
+#input {
+    border: none;
+    width: 80%;
+    height: 30px;
+    border-bottom: 2.5px solid #27ae60;
+    background-color: #f5f5dc00;
+    font-size: 32px;
+    text-align: center;
+}
+
+#input:hover {
+    transition: ease-in-out 0.75s;
+    width: 90%;
+}
+
+#input:focus {
+    border-bottom-color: #2980b9;
+}
