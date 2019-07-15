@@ -34,7 +34,7 @@ class Add extends React.Component<any> {
 
   public submitter = () => {
     const inputRef = document.getElementById(`input`) as HTMLInputElement;
-
+    const inputClassNames: string = inputRef.className;
     const currentStep = this.props.store.stepCounter;
     const inputData = inputRef.value;
 
@@ -42,8 +42,21 @@ class Add extends React.Component<any> {
       if (inputData !== ``) {
         const inputLinkParts = inputData.split(`/`);
         if (inputLinkParts.length === 1) {
-          inputRef.style.borderBottomColor = `red`;
-          const refToInputMsg = document.getElementById(`input-msg-container-container`) as any;
+          inputRef.style.borderColor = `#ff4646`;
+
+          if (inputClassNames.length > 0) {
+            inputRef.className = '';
+            requestAnimationFrame(() => {
+              inputRef.className = '';
+            });
+          }
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              inputRef.className = 'animated shake';
+            });
+          });
+
+          const refToInputMsg = document.getElementById(`input-msg-container`) as any;
           refToInputMsg.style.display = `flex`;
         } else {
           const ytId = inputLinkParts[inputLinkParts.length - 1];
@@ -117,8 +130,19 @@ class Add extends React.Component<any> {
             });
         }
       } else {
-        inputRef.style.borderBottomColor = `red`;
+        inputRef.style.borderColor = `#ff4646`;
         inputRef.placeholder = `Please fill in this field`;
+        if (inputClassNames.length > 0) {
+          inputRef.className = '';
+          requestAnimationFrame(() => {
+            inputRef.className = '';
+          });
+        }
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            inputRef.className = 'animated shake';
+          });
+        });
       }
     }
     if (currentStep === 2) {
@@ -176,11 +200,7 @@ class Add extends React.Component<any> {
     }
     if (!this.props.store.showLoader) {
       renderThis = (
-        <AddBody
-          refToThis={this}
-          mainText="Paste your link down here :"
-          inputFieldText="Type or paste your link here"
-        />
+        <AddBody refToThis={this} mainText="Enter the link :" inputFieldText="Type or paste your link here" />
       );
     }
 

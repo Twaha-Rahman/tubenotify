@@ -48,6 +48,7 @@ const Navbar: React.SFC<INavbarProps> = props => {
   }
   return (
     <div className="navbar">
+      <div className="child-one" />
       <span className="center-brand">
         <h1>TubeNotify</h1>
       </span>

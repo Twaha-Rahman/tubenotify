@@ -15,11 +15,11 @@ const AddBody: React.SFC<IAddBodyProps> = props => {
       <h1>{props.mainText}</h1>
       <input id="input" type="text" placeholder={props.inputFieldText} />
       <br />
-      <div id="input-msg-container-container">
-        <div className="input-msg-container">
-          <span id="input-msg">The link you have entered is not valid.</span>
-        </div>
+
+      <div id="input-msg-container">
+        <span id="input-msg">The link you have entered is not valid!</span>
       </div>
+
       <br />
       <div onClick={props.refToThis.submitter}>
         <Button buttonIcon={faArrowRight} buttonMessage="Next" />

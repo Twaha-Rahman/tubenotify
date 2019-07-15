@@ -1,22 +1,21 @@
-#input-msg-container-container {
+#input-msg-container {
     display: none;
-    flex-flow: row nowrap;
+    flex-direction: row;
     justify-content: center;
-}
-
-.input-msg-container {
     padding: 5px;
-    border: #c0392b solid 2px;
-    border-radius: 25px;
     width: 75%;
 }
 
 #input-msg {
     font-size: 2.5rem;
     font-weight: bold;
+    color: #ff3c3c;
 }
 
 .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     font-family: Roboto;
     font-size: 50px;
     text-align: center;
@@ -24,20 +23,17 @@
 }
 
 #input {
-    border: none;
     width: 80%;
-    height: 30px;
-    border-bottom: 2.5px solid #27ae60;
-    background-color: #f5f5dc00;
-    font-size: 32px;
+    color: #929292;
+    border-width: 2.5px;
+    border-radius: 8px;
+    border-color: #84cdfd;
+    background-color: inherit;
+    font-size: 40px;
     text-align: center;
 }
 
 #input:hover {
     transition: ease-in-out 0.75s;
-    width: 90%;
-}
-
-#input:focus {
-    border-bottom-color: #2980b9;
+    width: 82.5%;
 }

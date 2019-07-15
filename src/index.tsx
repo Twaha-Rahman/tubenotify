@@ -8,6 +8,7 @@ import App from './App';
 import Navbar from './components/Navbar/Navbar';
 import ErrorPage from 'src/pages/ErrorPage/ErrorPage';
 import Selector from 'src/pages/Selector/Selector';
+import FinalStep from 'src/pages/FinalStep/FinalStep';
 
 import { Provider } from 'react-redux';
 import * as Router from 'react-router-dom';
@@ -27,6 +28,7 @@ ReactDOM.render(
         <Router.Route exact={true} path="/about" component={About} />
         <Router.Route exact={true} path="/error" component={ErrorPage} />
         <Router.Route exact={true} path="/selector" component={Selector} />
+        <Router.Route exact={true} path="/final" component={FinalStep} />
       </div>
     </Router.BrowserRouter>
   </Provider>,

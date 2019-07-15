@@ -6,7 +6,7 @@ import Button from '../../components/Button/Button';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import InfoToggler from '../../components/InfoToggler/InfoToggler';
 import eraseAll from '../../utilities/eraseAll';
-import Loading from '../../components/Loading/Loading';
+import { Redirect } from 'react-router';
 
 class Selector extends React.Component<any> {
   constructor(props: any) {
@@ -64,8 +64,8 @@ class Selector extends React.Component<any> {
           }}
         >
           <InfoToggler
-            textColor="#ffffff"
-            backgroundColor="#4bca3b"
+            textColor="#0c212f"
+            backgroundColor="#27ae60"
             num={index}
             title={val}
             imgLink={addThumbnailLinks[index]}
@@ -75,7 +75,7 @@ class Selector extends React.Component<any> {
     });
 
     if (this.props.store.stepCounter === 4) {
-      return <Loading />;
+      return <Redirect to="/final" />;
     }
 
     return (
@@ -93,7 +93,7 @@ class Selector extends React.Component<any> {
               });
             }}
           >
-            <Button buttonMessage="Next" buttonIcon={faArrowRight} />
+            <Button expadedButton={true} buttonMessage="Next" buttonIcon={faArrowRight} />
           </span>
         </div>
       </div>
