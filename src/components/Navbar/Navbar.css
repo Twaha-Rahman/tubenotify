@@ -6,18 +6,18 @@
 
 .navbar {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-
-    margin: 0;
+    grid-template-columns: 1fr 1fr;
+    height: 9.5vh;
     position: fixed;
     top: 0;
     left: 0;
-    padding: 5px 9px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     color: #bed6e6;
     background-color: #573c9a;
     /* #9a3c3c,#2c3e50 */
     box-shadow: -2.5px 2px 20px #000000;
-    width: 100%;
+    width: 100vw;
 }
 
 .navbar a {
@@ -32,16 +32,18 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-
-    font-size: 50px;
+    margin-left: 5px;
+    font-size: 8.25vw;
 }
 
 .center-brand {
-    font-size: 14.5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 3.35vw;
     font-family: Comfortaa;
     font-weight: 700;
-
-    justify-self: center;
+    margin-left: 5px;
 }
 
 .child-two {
@@ -49,11 +51,11 @@
     flex-direction: row;
     align-items: center;
 
-    font-size: 50px;
-    margin-right: 20px;
+    font-size: 10.15vw;
+    margin-right: 5px;
     justify-self: end;
 }
 
 .child-two span {
-    margin-left: 25px;
+    margin-left: 3.75vw;
 }

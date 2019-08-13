@@ -8,10 +8,13 @@ import InfoToggler from '../../components/InfoToggler/InfoToggler';
 import eraseAll from '../../utilities/eraseAll';
 import { Redirect } from 'react-router';
 
+import Loading from 'src/components/Loading/Loading';
+
 class Selector extends React.Component<any> {
   constructor(props: any) {
     super(props); // store and route is in the props
     this.helper = this.helper.bind(this);
+    console.log(`run`);
   }
   public componentWillUnmount() {
     this.props.dispatch({
@@ -75,6 +78,11 @@ class Selector extends React.Component<any> {
     });
 
     if (this.props.store.stepCounter === 4) {
+      return <Loading />;
+    }
+
+    if (this.props.store.stepCounter === 5) {
+      // process the data here and go to the next page by rendering the following line-
       return <Redirect to="/final" />;
     }
 

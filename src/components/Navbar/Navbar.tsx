@@ -18,9 +18,7 @@ const Navbar: React.SFC<INavbarProps> = props => {
             <FontAwesomeIcon icon={faChevronLeft} />
           </Router.Link>
         </div>
-        <span className="center-brand">
-          <h1>TubeNotify</h1>
-        </span>
+
         <div className="child-two">
           <span>
             <Router.Link to="add">
@@ -48,7 +46,6 @@ const Navbar: React.SFC<INavbarProps> = props => {
   }
   return (
     <div className="navbar">
-      <div className="child-one" />
       <span className="center-brand">
         <h1>TubeNotify</h1>
       </span>
