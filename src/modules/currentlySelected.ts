@@ -8,6 +8,9 @@ const currentlySelected = (state = 0, action: ICurrentlySelectedAction) => {
     const newState = action.number;
     return newState;
   }
+  if (action.type === `eraseCurrentlySelected`) {
+    return 0;
+  }
   return state;
 };
 

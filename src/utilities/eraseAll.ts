@@ -1,4 +1,4 @@
-function eraseAll(refToThis: any) {
+function eraseAll(refToThis: any, scene: string) {
   refToThis.props.dispatch({
     type: `eraseTitles`
   });
@@ -10,6 +10,17 @@ function eraseAll(refToThis: any) {
   refToThis.props.dispatch({
     type: `eraseThumbnailLinks`
   });
+  if (scene === 'selector') {
+    refToThis.props.dispatch({
+      type: 'eraseAdditionalInfo'
+    });
+    refToThis.props.dispatch({
+      type: 'eraseRequestLink'
+    });
+    refToThis.props.dispatch({
+      type: 'eraseKeywords'
+    });
+  }
 }
 
 export default eraseAll;

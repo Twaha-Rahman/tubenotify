@@ -1,7 +1,7 @@
 .selector-container {
-    margin-bottom: 120px;
+  margin-bottom: 120px;
 }
-
+/*
 .selector-next-btn {
     position: fixed;
     bottom: 0px;
@@ -21,4 +21,19 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+*/
+.selector-load-more-btn {
+  width: 100%;
+}
+.selector-next-btn {
+  width: 100%;
+}
+.selector-btn-container {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }

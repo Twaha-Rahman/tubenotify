@@ -1,19 +1,14 @@
-function dbReader(refToDB: any) {
-  refToDB
-    .then((ref: any) => {
-      const tx = ref.transaction(`Query`, `readwrite`);
-      const store: any = tx.store;
-      const data = store.getAll();
-      return data;
-    })
-
-    .then((data: any) => {
-      console.log(`Success!`);
-      console.log(data);
-    })
-    .catch(() => {
-      console.log(`Sorry! An error occured!`);
-    });
+async function dbReader(refToDB: any, objectStore: any) {
+  try {
+    const db = await refToDB;
+    const tx = db.transaction(objectStore, 'readwrite');
+    const data = await tx.objectStore(objectStore).getAll();
+    console.log(data);
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+  return null;
 }
 
 export default dbReader;

@@ -28,7 +28,7 @@ class Add extends React.Component<any> {
       this.props.dispatch({
         type: `hideLoader`
       });
-      eraseAll(this);
+      eraseAll(this, 'add');
     }
   }
 
@@ -60,38 +60,67 @@ class Add extends React.Component<any> {
           refToInputMsg.style.display = `flex`;
         } else {
           const ytId = inputLinkParts[inputLinkParts.length - 1];
+          let firstLink = '';
+          //tslint:disable
+          if (inputLinkParts[inputLinkParts.length - 2] === 'channel') {
+            firstLink = linkGenerator({ id: ytId, type: `channels`, part: `contentDetails, snippet` });
+          } else {
+            firstLink = linkGenerator({ forUsername: ytId, type: `channels`, part: `contentDetails, snippet` });
+          }
 
-          const firstLink = linkGenerator({ id: ytId, type: `channels`, part: `contentDetails` });
           this.props.dispatch({
             type: `showLoader`
           });
           fetch(firstLink)
             .then(firstLinkResponse => {
               firstLinkResponse.json().then(firstLinkData => {
+                console.log(firstLinkData.items[0].snippet.thumbnails.default.url);
+                const channelLogoLink = firstLinkData.items[0].snippet.thumbnails.default.url;
                 if (firstLinkData.items.length === 0) {
                   this.props.dispatch({
                     type: `showError`
                   });
                 } else {
                   const playlistId: string = firstLinkData.items[0].contentDetails.relatedPlaylists.uploads;
+                  console.log(firstLinkData);
+
                   const secondLink = linkGenerator({
                     playlistId,
                     type: `playlistItems`,
                     maxResults: 50,
                     part: `snippet`
                   });
-
                   fetch(secondLink)
                     .then(secondLinkResponse => {
                       secondLinkResponse.json().then(secondLinkData => {
+                        console.log(secondLinkData.items[secondLinkData.items.length - 1].snippet.resourceId.videoId);
+
+                        const lookedUpToThisVideoTag =
+                          secondLinkData.items[secondLinkData.items.length - 1].snippet.resourceId.videoId;
+
+                        this.props.dispatch({
+                          type: 'addAdditionalInfo',
+                          action: {
+                            channelName: secondLinkData.items[0].snippet.channelTitle,
+                            channelTag: secondLinkData.items[0].snippet.channelId,
+                            channelLogoLink: channelLogoLink,
+                            playlistID: secondLinkData.items[0].snippet.playlistId,
+                            lookedUpToThisVideoTag: lookedUpToThisVideoTag
+                          }
+                        });
                         const videoInfoArray = secondLinkData.items;
                         const descriptions: string[] = [];
                         const thumbnailLinks: string[] = [];
                         const titles: string[] = [];
-                        videoInfoArray.forEach((abc: any) => {
-                          titles.push(abc.snippet.title);
-                          descriptions.push(abc.snippet.description);
-                          thumbnailLinks.push(abc.snippet.thumbnails.medium.url);
+                        videoInfoArray.forEach((response: any) => {
+                          titles.push(response.snippet.title);
+                          descriptions.push(response.snippet.description);
+                          thumbnailLinks.push(response.snippet.thumbnails.medium.url);
+                        });
+                        this.props.dispatch({
+                          type: 'requestLink',
+                          link: secondLink,
+                          nextPageToken: secondLinkData.nextPageToken
                         });
                         multipleStoreCommits({
                           refToDispatcher: this.props.dispatch,
@@ -148,6 +177,9 @@ class Add extends React.Component<any> {
     if (currentStep === 2) {
       const subscriptionWords = inputData.split(`,`);
       const { addTitles, addDescriptions, addThumbnailLinks } = this.props.store;
+      subscriptionWords.forEach(keyword => {
+        this.props.dispatch({ keyword, type: 'addKeyword' });
+      });
 
       const indexByTitle = looper(addTitles, subscriptionWords);
       const indexByDescription = looper(addDescriptions, subscriptionWords);
@@ -167,7 +199,7 @@ class Add extends React.Component<any> {
         toCompareWith: combinedUniqueIndexes
       });
 
-      eraseAll(this);
+      eraseAll(this, 'add');
 
       multipleStoreCommits({
         refToDispatcher: this.props.dispatch,

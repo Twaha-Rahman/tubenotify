@@ -1,6 +1,7 @@
 interface ILinkGenerators {
   type: string;
   id?: string;
+  forUsername?: string;
   playlistId?: string;
   maxResults?: number;
   part?: string;
@@ -19,14 +20,18 @@ const optionsOne = {
 
 function linkGenerator(obj: ILinkGenerators) {
   const options = {
-    key: `AIzaSyAcdZMDhO75zYlCi_aqRXzccVToAmQ8Quc`,
+    key: `AIzaSyBV7e5CrBUqUzc1dlUVCr8vK6HpZL5h7u8`,
     type: obj.type
   };
 
   options[`part`] = obj.part;
 
   if (obj.type === `channels`) {
-    options[`id`] = obj.id;
+    if ('id' in obj) {
+      options[`id`] = obj.id;
+    } else {
+      options[`forUsername`] = obj.forUsername;
+    }
   }
 
   if (obj.type === `playlistItems`) {
@@ -42,6 +47,7 @@ function linkGenerator(obj: ILinkGenerators) {
   for (const part of keys) {
     link += `${part}=${options[part]}&`;
   }
+  console.log(link);
 
   return link;
 }
