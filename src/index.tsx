@@ -19,7 +19,7 @@ import registerServiceWorker from './registerServiceWorker';
 ReactDOM.render(
   <Provider store={Store}>
     <Router.BrowserRouter>
-      <div>
+      <div className="main-body">
         <Router.Route exact={true} component={Navbar} />
         <Router.Route exact={true} path="/" component={App} />
         <Router.Route exact={true} path="/add" component={Add} />

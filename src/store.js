@@ -9,13 +9,19 @@ import errorToggler from './modules/errorToggler';
 import currentlySelected from './modules/currentlySelected';
 import requestLink from './modules/requestLink';
 import addAdditionalInfo from './modules/addAdditionalInfo';
+import addSubscriptions from './modules/addSubscriptions';
+import addVideoPublishDates from './modules/addVideoPublishDates';
+import addVideoIds from './modules/addVideoIds';
 
 const reducers = combineReducers({
   addAdditionalInfo,
   addDescriptions,
   addKeyword,
+  addSubscriptions,
   addThumbnailLinks,
   addTitles,
+  addVideoIds,
+  addVideoPublishDates,
   currentlySelected,
   errorToggler,
   requestLink,

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import './Navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faInfoCircle, faCog, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+// faInfoCircle, faCog
 import * as Router from 'react-router-dom';
 
 interface INavbarProps {
@@ -30,16 +31,16 @@ const Navbar: React.SFC<INavbarProps> = props => {
               <FontAwesomeIcon icon={faTrash} />
             </Router.Link>
           </span>
-          <span>
+          {/* <span className="willBeAvailableInTheNextUpdate">
             <Router.Link to="settings">
               <FontAwesomeIcon icon={faCog} />
             </Router.Link>
           </span>
-          <span>
+          <span className="willBeAvailableInTheNextUpdate">
             <Router.Link to="about">
               <FontAwesomeIcon icon={faInfoCircle} />
             </Router.Link>
-          </span>
+          </span> */}
         </div>
       </div>
     );
@@ -60,16 +61,16 @@ const Navbar: React.SFC<INavbarProps> = props => {
             <FontAwesomeIcon icon={faTrash} />
           </Router.Link>
         </span>
-        <span>
-          <Router.Link to="settings">
+        {/* <span>
+          <Router.Link to="settings" className="willBeAvailableInTheNextUpdate">
             <FontAwesomeIcon icon={faCog} />
           </Router.Link>
         </span>
         <span>
-          <Router.Link to="about">
+          <Router.Link to="about" className="willBeAvailableInTheNextUpdate">
             <FontAwesomeIcon icon={faInfoCircle} />
           </Router.Link>
-        </span>
+        </span> */}
       </div>
     </div>
   );

@@ -10,15 +10,17 @@ function eraseAll(refToThis: any, scene: string) {
   refToThis.props.dispatch({
     type: `eraseThumbnailLinks`
   });
+
+  refToThis.props.dispatch({
+    type: `eraseVideoIds`
+  });
+
+  refToThis.props.dispatch({
+    type: `eraseVideoPublishDates`
+  });
   if (scene === 'selector') {
     refToThis.props.dispatch({
-      type: 'eraseAdditionalInfo'
-    });
-    refToThis.props.dispatch({
       type: 'eraseRequestLink'
-    });
-    refToThis.props.dispatch({
-      type: 'eraseKeywords'
     });
   }
 }

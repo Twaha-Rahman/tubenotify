@@ -9,6 +9,8 @@
 // To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
 // This link also includes instructions on opting out of this behavior.
 
+const publicKey = 'BAZTDuUqEH_nPU-HKJlX8rUnriUqtNJ05BvYg4SNM7EVR47cgbDbLfD_nK3bzTDRsKTsD0zvh2KYurPMyqaI-q8';
+
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -18,7 +20,7 @@ const isLocalhost = Boolean(
 );
 
 export default function register() {
-  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+  if (/* process.env.NODE_ENV === 'production' && */ 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL!, window.location.toString());
     if (publicUrl.origin !== window.location.origin) {
@@ -29,7 +31,7 @@ export default function register() {
     }
 
     window.addEventListener('load', () => {
-      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+      const swUrl = `${process.env.PUBLIC_URL}/custom-service-worker.js`;
 
       if (isLocalhost) {
         // This is running on localhost. Lets check if a service worker still exists or not.
@@ -55,6 +57,56 @@ function registerValidSW(swUrl: string) {
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {
+      // My custom code start
+
+      //
+      let serviceWorker;
+      if (registration.installing) {
+        serviceWorker = registration.installing;
+        // console.log('Service worker installing');
+      } else if (registration.waiting) {
+        serviceWorker = registration.waiting;
+        // console.log('Service worker installed & waiting');
+      } else if (registration.active) {
+        serviceWorker = registration.active;
+        // console.log('Service worker active');
+      }
+
+      if (serviceWorker) {
+        console.log('sw current state', serviceWorker.state);
+        if (serviceWorker.state === 'activated') {
+          // If push subscription wasnt done yet have to do here
+          console.log('sw already activated - Do watever needed here');
+        }
+        serviceWorker.addEventListener('statechange', (e: any) => {
+          console.log('sw statechange : ', e.target.state);
+          if (e.target.state === 'activated') {
+            // use pushManger for subscribing here.
+            console.log('Just now activated. now we can subscribe for push notification');
+            console.log('start');
+            registration.pushManager
+              .subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: urlBase64ToUint8Array(publicKey)
+              })
+              .then(subscription => {
+                console.log(subscription);
+
+                fetch('api/init', {
+                  method: 'POST',
+                  body: JSON.stringify(subscription),
+                  headers: {
+                    'content-type': 'application/json'
+                  }
+                });
+              });
+          }
+        });
+      }
+      //
+
+      // My custom code end
+
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         if (installingWorker) {
@@ -80,6 +132,21 @@ function registerValidSW(swUrl: string) {
     .catch(error => {
       console.error('Error during service worker registration:', error);
     });
+}
+
+function urlBase64ToUint8Array(base64String: any) {
+  const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+
+  //tslint:disable
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  console.log('end');
+  return outputArray;
 }
 
 function checkValidServiceWorker(swUrl: string) {
@@ -111,3 +178,40 @@ export function unregister() {
     });
   }
 }
+
+////////////////////////////////////
+
+// navigator.serviceWorker.register('', { scope: '/' }).then(
+//   (reg: any) => {
+//     let serviceWorker;
+//     if (reg.installing) {
+//       serviceWorker = reg.installing;
+//       // console.log('Service worker installing');
+//     } else if (reg.waiting) {
+//       serviceWorker = reg.waiting;
+//       // console.log('Service worker installed & waiting');
+//     } else if (reg.active) {
+//       serviceWorker = reg.active;
+//       // console.log('Service worker active');
+//     }
+
+//     if (serviceWorker) {
+//       console.log('sw current state', serviceWorker.state);
+//       if (serviceWorker.state === 'activated') {
+//         // If push subscription wasnt done yet have to do here
+//         console.log('sw already activated - Do watever needed here');
+//       }
+//       serviceWorker.addEventListener('statechange', (e: any) => {
+//         console.log('sw statechange : ', e.target.state);
+//         if (e.target.state === 'activated') {
+//           // use pushManger for subscribing here.
+//           console.log('Just now activated. now we can subscribe for push notification');
+//           subscribeForPushNotification(reg);
+//         }
+//       });
+//     }
+//   },
+//   (err: any) => {
+//     console.error('unsuccessful registration with ', '', err);
+//   }
+// );
